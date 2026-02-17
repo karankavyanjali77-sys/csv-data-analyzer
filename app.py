@@ -2,59 +2,120 @@ import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
 
-st.title("📊 CSV Data Analyzer Pro")
+# ---------- PAGE CONFIG ----------
+st.set_page_config(
+    page_title="CSV Analyzer Pro",
+    page_icon="📊",
+    layout="wide"
+)
 
-uploaded_file = st.file_uploader("Upload your CSV file", type=["csv"])
+# ---------- DATA LOADING ----------
+@st.cache_data
+def load_data(file):
+    return pd.read_csv(file)
 
-if uploaded_file is not None:
-    df = pd.read_csv(uploaded_file)
+# ---------- SIDEBAR ----------
+st.sidebar.title("CSV Analyzer Pro")
+st.sidebar.write("Upload a dataset and explore insights")
 
-    st.subheader("Data Preview")
-    st.write(df.head())
+uploaded_file = st.sidebar.file_uploader("Upload CSV", type=["csv"])
 
-    st.subheader("Dataset Info")
-    st.write(f"Rows: {df.shape[0]}  |  Columns: {df.shape[1]}")
+# ---------- MAIN ----------
+st.title("📊 CSV Analyzer Pro")
+st.caption("Production-style interactive dataset explorer")
 
-    st.subheader("Column Names")
-    st.write(list(df.columns))
+if uploaded_file:
 
-    # SUMMARY STATS
-    st.subheader("Summary Statistics")
-    st.write(df.describe())
+    try:
+        df = load_data(uploaded_file)
 
-    # COLUMN SELECT
-    column = st.selectbox("Select column to visualize", df.columns)
+        # ===== OVERVIEW =====
+        st.subheader("Dataset Overview")
+        col1, col2, col3 = st.columns(3)
+        col1.metric("Rows", df.shape[0])
+        col2.metric("Columns", df.shape[1])
+        col3.metric("Missing Values", int(df.isna().sum().sum()))
 
-    if pd.api.types.is_numeric_dtype(df[column]):
+        # ===== PREVIEW =====
+        st.subheader("Preview")
+        st.dataframe(df.head(), use_container_width=True)
 
-        chart_type = st.radio(
-            "Choose chart type:",
-            ["Histogram", "Line Chart", "Box Plot"]
+        # ===== SUMMARY =====
+        st.subheader("Summary Statistics")
+        st.write(df.describe())
+
+        # ===== MISSING VALUES =====
+        st.subheader("Missing Values by Column")
+        missing = df.isna().sum()
+        if missing.sum() == 0:
+            st.success("No missing values found")
+        else:
+            st.write(missing[missing > 0])
+
+        # ===== NUMERIC COLUMNS =====
+        numeric_cols = df.select_dtypes(include="number").columns.tolist()
+
+        if numeric_cols:
+
+            st.subheader("Single Column Visualization")
+
+            column = st.selectbox("Choose numeric column", numeric_cols)
+            chart = st.radio("Chart type", ["Histogram", "Line", "Box"])
+
+            fig, ax = plt.subplots()
+
+            if chart == "Histogram":
+                df[column].hist(ax=ax)
+            elif chart == "Line":
+                ax.plot(df[column])
+            else:
+                ax.boxplot(df[column])
+
+            ax.set_title(f"{chart} plot of {column}")
+            st.pyplot(fig)
+
+            # ===== MULTI COLUMN COMPARISON =====
+            st.subheader("Compare Multiple Columns")
+
+            multi_cols = st.multiselect(
+                "Select columns",
+                numeric_cols
+            )
+
+            if len(multi_cols) >= 2:
+                fig2, ax2 = plt.subplots()
+                df[multi_cols].plot(ax=ax2)
+                st.pyplot(fig2)
+
+            # ===== CORRELATION =====
+            st.subheader("Correlation Heatmap")
+
+            corr = df[numeric_cols].corr()
+            fig3, ax3 = plt.subplots()
+            cax = ax3.imshow(corr)
+            ax3.set_xticks(range(len(corr.columns)))
+            ax3.set_xticklabels(corr.columns, rotation=90)
+            ax3.set_yticks(range(len(corr.columns)))
+            ax3.set_yticklabels(corr.columns)
+            fig3.colorbar(cax)
+            st.pyplot(fig3)
+
+        else:
+            st.warning("No numeric columns available")
+
+        # ===== DOWNLOAD =====
+        st.subheader("Download Processed Data")
+        csv = df.to_csv(index=False).encode("utf-8")
+        st.download_button(
+            "Download CSV",
+            csv,
+            "processed_data.csv",
+            "text/csv"
         )
 
-        fig, ax = plt.subplots()
+    except Exception as e:
+        st.error("Error processing file. Please upload a valid CSV.")
+        st.exception(e)
 
-        if chart_type == "Histogram":
-            df[column].hist(ax=ax)
-
-        elif chart_type == "Line Chart":
-            ax.plot(df[column])
-
-        elif chart_type == "Box Plot":
-            ax.boxplot(df[column])
-
-        ax.set_title(f"{chart_type} of {column}")
-        st.pyplot(fig)
-
-    else:
-        st.warning("Selected column is not numeric.")
-
-    # DOWNLOAD OPTION
-    st.subheader("Download Data")
-    csv = df.to_csv(index=False).encode('utf-8')
-    st.download_button(
-        label="Download CSV",
-        data=csv,
-        file_name="processed_data.csv",
-        mime="text/csv",
-    )
+else:
+    st.info("Upload a CSV file from the sidebar to begin.")
