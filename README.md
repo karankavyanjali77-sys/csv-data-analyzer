@@ -1,30 +1,38 @@
-# CSV Data Analyzer — Automated Dataset Intelligence Tool
+# 📊 CSV Data Analyzer (AI-Ready Data Exploration Tool)
 
-## 📌 Overview
-CSV Data Analyzer is a deployed Python-based web application that automates exploratory data analysis.  
-Users can upload any CSV dataset and instantly receive cleaned outputs, statistical summaries, and visual insights.
+Interactive Streamlit dashboard for fast dataset inspection, cleaning insights, and visualization — built for real-world data analysis workflows.
 
-This tool reduces manual dataset inspection time and makes data exploration accessible to non-technical users.
+## 🚀 Live Features
+- Upload any CSV instantly
+- Automatic dataset profiling (rows, columns, missing values)
+- Summary statistics generation
+- Interactive visualizations
+- Clean dashboard UI for analysts & ML preprocessing
 
-## 🚀 Features
-- Upload CSV datasets
-- Automatic missing value detection
-- Statistical summaries
-- Correlation insights
-- Visualizations generated dynamically
-- Interactive web interface
+---
 
-## 🧠 Workflow
-Upload CSV → Data Cleaning → Statistical Analysis → Visualization → Insights Display
+## 🖼️ Application Preview
 
-## 🛠 Tech Stack
-Python, Pandas, Matplotlib, Streamlit
+### 🏠 Home Interface
+![Home](screenshots/home.png)
 
-## 📷 Screenshots
-(Add screenshots here)
+### 📑 Dataset Preview & Metrics
+![Preview](screenshots/data_preview.png)
 
-## ▶️ How to Run
-pip install -r requirements.txt  
+### 📊 Visualizations Dashboard
+![Visualizations](screenshots/visualization.png)
+
+### 📈 Statistical Analysis
+![Analysis](screenshots/analysis.png)
+
+---
+
+## 🛠️ Tech Stack
+Python • Pandas • NumPy • Matplotlib • Streamlit
+
+## ▶️ Run Locally
+```bash
+pip install -r requirements.txt
 streamlit run app.py
 
 ## 🔮 Future Improvements
