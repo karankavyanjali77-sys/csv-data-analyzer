@@ -1,119 +1,33 @@
-# 📊 CSV Analyzer Pro
+# CSV Data Analyzer — Automated Dataset Intelligence Tool
 
-**Production-grade interactive dataset explorer built with Python & Streamlit**
+## 📌 Overview
+CSV Data Analyzer is a deployed Python-based web application that automates exploratory data analysis.  
+Users can upload any CSV dataset and instantly receive cleaned outputs, statistical summaries, and visual insights.
 
-CSV Analyzer Pro is a lightweight analytics dashboard that allows users to upload datasets, explore statistics, visualize trends, and download processed data — all from a clean web interface.
+This tool reduces manual dataset inspection time and makes data exploration accessible to non-technical users.
 
-Designed as a real-world portfolio project demonstrating data analysis, dashboard development, and deployment skills.
+## 🚀 Features
+- Upload CSV datasets
+- Automatic missing value detection
+- Statistical summaries
+- Correlation insights
+- Visualizations generated dynamically
+- Interactive web interface
 
----
+## 🧠 Workflow
+Upload CSV → Data Cleaning → Statistical Analysis → Visualization → Insights Display
 
-## 🚀 Live Demo
+## 🛠 Tech Stack
+Python, Pandas, Matplotlib, Streamlit
 
-*(Add your Streamlit link here after deployment)*
+## 📷 Screenshots
+(Add screenshots here)
 
-```
-https://your-app-link.streamlit.app
-```
+## ▶️ How to Run
+pip install -r requirements.txt  
+streamlit run app.py
 
----
-
-## ✨ Features
-
-### 📁 Data Upload
-
-* Upload any CSV dataset instantly
-* Fast cached loading for performance
-
-### 📊 Dataset Overview
-
-* Rows / columns / missing values metrics
-* Data preview table
-* Automatic summary statistics
-
-### 📈 Interactive Visualizations (Plotly)
-
-* Histogram, Line, Box plots
-* Scatter plot with selectable axes
-* Multi-column comparison charts
-* Correlation heatmap
-
-### 🔎 Data Explorer
-
-* Select specific columns to analyze
-* Search across entire dataset
-* Interactive scrollable dataframe
-
-### 📥 Export
-
-* Download cleaned/filtered dataset as CSV
-
----
-
-## 🛠️ Tech Stack
-
-* **Python**
-* **Streamlit**
-* **Pandas**
-* **Plotly**
-
----
-
-## 💻 Run Locally
-
-### 1️⃣ Clone repo
-
-```
-git clone https://github.com/YOUR_USERNAME/csv-analyzer-app.git
-cd csv-analyzer-app
-```
-
-### 2️⃣ Install dependencies
-
-```
-pip install -r requirements.txt
-```
-
-### 3️⃣ Start app
-
-```
-python -m streamlit run app.py
-```
-
----
-
-## 📂 Project Structure
-
-```
-csv-analyzer-app/
-│── app.py
-│── requirements.txt
-│── README.md
-```
-
----
-
-## 🎯 Learning Objectives
-
-This project demonstrates:
-
-* Building production-style Streamlit dashboards
-* Interactive data visualization with Plotly
-* Handling real datasets dynamically
-* Writing clean, deployable Python apps
-* Creating recruiter-ready portfolio projects
-
----
-
-## 👩‍💻 Author
-
-**Kavyanjali Karan**
-B.Tech CSE Student | Aspiring Software & Data Engineer
-
-GitHub: https://github.com/karankavyanjali77-sys
-
----
-
-## ⭐ If you like this project
-
-Give it a star ⭐ and feel free to fork or improve it.
+## 🔮 Future Improvements
+- Automatic anomaly detection
+- Natural-language dataset summaries
+- Exportable reports
