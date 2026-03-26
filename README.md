@@ -11,7 +11,7 @@
 
 ## 🚀 Live Demo
 
-👉 **[Open App on Streamlit Cloud](https://your-app-link.streamlit.app)** ← deploy and paste link here
+👉 'https://csv-data-analyzer-sne8rbjtrsodkfvdygqyda.streamlit.app/'
 
 ---
 
